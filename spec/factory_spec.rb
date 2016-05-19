@@ -8,7 +8,6 @@ describe 'Factory' do
 
   before(:all) do
     Factory.new('MyOwnClass', :l)
-    TestClass = Factory.new(:a, :b, :c)
   end
 
   context '.new' do
@@ -18,6 +17,7 @@ describe 'Factory' do
     end
 
     it 'should be in Module constants' do
+      TestClass = Factory.new(:a, :b, :c)
       expect(Module.constants.include?(:TestClass)).to be true
     end
 
@@ -25,8 +25,6 @@ describe 'Factory' do
       it { expect(Factory::MyOwnClass.new('l method').l).to eq 'l method' }
       it { expect(class_instance.a).to eq 'One' }
     end
-
-
   end
 
   context '#[]' do
@@ -60,13 +58,13 @@ describe 'Factory' do
 
   context '#to_a' do
     it 'when call to_a' do
-      expect(class_instance.to_a).to eq ['One', 'Two', 'Three']
+      expect(class_instance.to_a).to eq %w(One Two Three)
     end
   end
 
   context '#to_h' do
     it 'when call to_h' do
-      h = {a: 'One', b: 'Two', c: 'Three'}
+      h = { a: 'One', b: 'Two', c: 'Three' }
       expect(class_instance.to_h).to eq h
     end
   end

@@ -15,7 +15,6 @@ class Factory
 
   def self.generate_class(*args, &block)
     Class.new do
-
       attr_accessor(*args)
       define_method 'initialize' do |*arguments|
         arguments.each_with_index do |item, index|
@@ -36,8 +35,8 @@ class Factory
       end
 
       define_method 'to_a' do
-        args.inject([]) do |arr, item|
-          arr << send(item)
+        args.map do |item|
+          send(item)
         end
       end
 
